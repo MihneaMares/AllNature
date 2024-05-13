@@ -1,0 +1,16 @@
+﻿
+<MudNavMenu Class="d-flex flex-grow-1 flex-column justify-space-between" Color="Color.Primary" Style="height:100vh" @onclick="ToggleNavMenu">
+    <MudPaper Style="background:Transparent;" Square="true" Class="flex-grow-1"> 
+        <MudNavLink Match="NavLinkMatch.Prefix" Href="shop">Shop</MudNavLink>
+    </MudPaper>
+</MudNavMenu>
+
+@code {
+    private bool _collapseNavMenu = true;
+    private string NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        _collapseNavMenu = !_collapseNavMenu;    
+    }
+}
