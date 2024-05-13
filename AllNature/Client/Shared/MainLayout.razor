@@ -1,0 +1,60 @@
+﻿@using MudBlazor.ThemeManager
+@inherits LayoutComponentBase
+
+<MudBlazor.MudThemeProvider Theme="Custom" IsDarkMode="@_darkMode" />
+<MudBlazor.MudDialogProvider />
+<MudBlazor.MudSnackbarProvider />
+
+<MudLayout>
+        <div class="hero">
+            <video autoplay loop muted plays-inline class="back-video">
+                <source src="Images/mountain-background.mp4" />
+            </video>
+        <MudAppBar Fixed="true" Elevation="0" Style="@($"background-color:transparent;")">
+            <MudPaper Style="background:Transparent;" Square="true" Class="d-flex justify-space-between flex-grow-1 gap-4" Elevation="0">
+                <MudStack Spacing="0" Row="true">
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Style="color:whitesmoke" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+
+                </MudStack>
+                <MudStack Spacing="0" Row="true" AlignItems="AlignItems.Center">
+                    <MudToggleIconButton @bind-Toggled="@_darkMode" Icon="@Icons.Material.Filled.DarkMode" ToggledColor="Color.Warning"
+                                         ToggledIcon="@Icons.Material.Filled.LightMode" />
+                    <MudMenu Dense="true">
+
+                    </MudMenu>
+                </MudStack>
+            </MudPaper>
+        </MudAppBar>
+        <MudDrawer Variant="DrawerVariant.Responsive" ClipMode="DrawerClipMode.Docked" Style="background-color:transparent" @bind-Open="@_drawerOpen" Elevation="10">
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="mt-5 mb-5">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+        </div>
+
+</MudLayout>
+
+
+
+@code {
+    private ThemeManagerTheme _themeManger = new();
+    private MudTheme Custom = new();
+    private bool _darkMode = true;
+    private bool _drawerOpen = true;
+
+    protected override void OnInitialized()
+    {
+        Custom.Palette.Primary = Colors.Green.Darken3;
+        Custom.PaletteDark.Primary = Colors.Green.Darken3;
+        _themeManger.Theme = Custom;
+        StateHasChanged();
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
